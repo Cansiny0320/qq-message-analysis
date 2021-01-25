@@ -11,4 +11,4 @@
 $ node server.js
 ```
 
-upload the Chat record
+upload the Chat record from qq (message.txt)
