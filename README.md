@@ -1,6 +1,6 @@
 <h1 align="center">💌 QQ MESSAGE ANALYSIS</h1>
 
-a tiny tools, maybe it can be used by couple
+a tiny toy, maybe it can be used by couple
 
 ## Features
 
