@@ -1,6 +1,11 @@
 const fs = require('fs')
 const readline = require('readline')
 
+const config = {
+  startDay: '',
+  keyword: '',
+}
+
 function read(file, callback) {
   const fRead = fs.createReadStream(file)
   const objReadline = readline.createInterface({
@@ -39,15 +44,14 @@ function read(file, callback) {
   })
 }
 
-function analyze(message) {
+function analyze(message, config) {
+  const { startDay, keyword } = config
   const keys = Object.keys(message)
-  let startDay = ''
   let maxDay
   let totalMessage = 0
   let totalDays = 0
   let firstMessage = ''
   let firstKeyword = ''
-  let keyword = 'mua'
   let count = 0
   let interval = ''
   function mostDay(key) {
@@ -78,10 +82,11 @@ function analyze(message) {
     })
   }
   for (const key of keys) {
-    if (+new Date(key) >= +new Date('2021-02-12') || !startDay) {
-      mostDay(key)
-      search(key, new RegExp(keyword, 'gi'))
+    if (+new Date(key) < +new Date(startDay) && startDay) {
+      continue
     }
+    mostDay(key)
+    search(key, new RegExp(keyword, 'gi'))
   }
 
   return `
