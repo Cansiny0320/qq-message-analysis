@@ -1,6 +1,7 @@
 import fs from 'fs/promises'
 import dayjs from 'dayjs'
 import { MessageMap } from './types'
+import path from 'path'
 
 export async function getMessageMap(path) {
   const messageMap: MessageMap = new Map()
@@ -21,8 +22,16 @@ export async function getMessageMap(path) {
   return messageMap
 }
 
+export function writeFile(path: string, data: any) {
+  fs.writeFile(path, JSON.stringify(data))
+}
+
 export function getTimeDiff(date1: string, date2: string) {
   const d1 = dayjs(date1)
   const d2 = dayjs(date2)
   return d1.diff(d2, 'second')
+}
+
+export function resolve(file: string) {
+  return path.resolve(__dirname, file)
 }

@@ -26,7 +26,7 @@ interface LatestMessage {
   diff: number
 }
 
-export function summaryOfYear(messageMap: MessageMap) {
+export function summaryOfYear(messageMap: MessageMap, year: number) {
   const totalMessage: MessageCount = {
     total: 0,
     img: 0,
@@ -73,14 +73,17 @@ export function summaryOfYear(messageMap: MessageMap) {
   }
 
   const getTheMostFrequentWords = (content: string, top: number) => {
-    const ignoreReg = /\[表情\]|\[图片\]|哈哈哈|QQ/g
+    const ignoreReg = /\[表情\]|\[图片\]|哈哈哈|QQ|戳一戳|最新版/g
     theMostFrequentWords = jieba
       .extract(content.replace(ignoreReg, ''), top)
       .map(e => e.word)
   }
 
   const getTheLongestMessage = (message: Message) => {
-    if (message.content.length > longestMessage.content.length) {
+    if (
+      message.content.length > longestMessage.content.length &&
+      message.content.length < 300
+    ) {
       longestMessage.content = message.content
       longestMessage.date = message.date
       longestMessage.time = message.time
@@ -98,13 +101,15 @@ export function summaryOfYear(messageMap: MessageMap) {
     }
   }
   messageMap.forEach((messages, date) => {
-    getTheMostMessage(messages, date)
-    messages.forEach(message => {
-      messageCount(message)
-      getTheLongestMessage(message)
-      getTheLatestMessage(message)
-      content += message.content
-    })
+    if (parseInt(date.split('-')[0]) === year) {
+      getTheMostMessage(messages, date)
+      messages.forEach(message => {
+        messageCount(message)
+        getTheLongestMessage(message)
+        getTheLatestMessage(message)
+        content += message.content
+      })
+    }
   })
   getTheMostFrequentWords(content, 5)
 

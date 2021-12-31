@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>统计</title>
+    <style>
+      span {
+        color: red;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>2021 年度聊天报告</h1>
+    <p>
+      今年我们一共发了
+      <span class="total"></span>
+      条消息
+    </p>
+    <p>
+      其中
+      <span class="img"></span>
+      条是图片，
+      <span class="emoji"></span>
+      条是表情
+    </p>
+    <p>
+      我们聊的最多的一天是
+      <span class="most-day"></span>
+      ,一共发了
+      <span class="most-num"></span>
+      条消息
+    </p>
+    <p>
+      我们的年度热词是：
+      <span class="hot"></span>
+    </p>
+    <p>
+      这一年我们说过最长的一句话有
+      <span class="long-len"></span>
+      个字(300 字以上忽略)
+    </p>
+    <p class="long-content"></p>
+    <p class="long-time"></p>
+    <p>
+      这一年我们说过最晚的一句话在凌晨
+      <span class="late-clock"></span>
+      点
+    </p>
+    <p class="late-content"></p>
+    <p class="late-time"></p>
+  </body>
+  <script>
+    fetch('./data.json')
+      .then(res => res.json())
+      .then(data => {
+        const {
+          totalMessage,
+          longestMessage,
+          theMostFrequentWords,
+          mostMessage,
+          latestMessage,
+        } = data
+        document.querySelector('.total').textContent = totalMessage.total
+        document.querySelector('.img').textContent = totalMessage.img
+        document.querySelector('.emoji').textContent = totalMessage.emoji
+        document.querySelector('.most-day').textContent = mostMessage.date
+        document.querySelector('.most-num').textContent = mostMessage.num
+        document.querySelector('.hot').textContent =
+          theMostFrequentWords.join('、')
+        document.querySelector('.long-len').textContent = longestMessage.length
+        document.querySelector('.long-content').textContent =
+          longestMessage.content
+        document.querySelector(
+          '.long-time'
+        ).textContent = `${longestMessage.date} ${longestMessage.time}`
+        document.querySelector('.late-clock').textContent =
+          latestMessage.time.split(':')[0]
+        document.querySelector('.late-content').textContent =
+          latestMessage.content
+        document.querySelector(
+          '.late-time'
+        ).textContent = `${latestMessage.date} ${latestMessage.time}`
+      })
+  </script>
+</html>
