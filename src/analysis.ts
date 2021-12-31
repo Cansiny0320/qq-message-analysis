@@ -1,5 +1,5 @@
 import { date, Message, MessageMap } from './types'
-
+import jieba from 'nodejieba'
 interface MessageCount {
   total: number
   img: number
@@ -23,6 +23,8 @@ export function summaryOfYear(messageMap: MessageMap) {
     num: 0,
   }
 
+  let content = ''
+
   const messageCount = (message: Message) => {
     const emojiReg = /\[表情\]/g
     const imgReg = /\[图片\]/g
@@ -39,10 +41,16 @@ export function summaryOfYear(messageMap: MessageMap) {
     }
   }
 
+  const getTheMostFrequentWords = (content: string, top: number) => {
+    return jieba.extract(content, top).map(e => e.word)
+  }
+
   messageMap.forEach((messages, date) => {
     getTheMostMessageDate(messages, date)
     messages.forEach(message => {
       messageCount(message)
+      content += message.content
     })
   })
+  getTheMostFrequentWords(content, 5)
 }
