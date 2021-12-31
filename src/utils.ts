@@ -8,7 +8,7 @@ export async function getMessageMap(path) {
   const data = file.split('\r\n')
   data.forEach((e, i) => {
     const infoRowReg =
-      /\d{4}(-)(1[0-2]|0?\d)\1([0-2]\d|\d|30|31) (?:[01]\d|2[0-3]):[0-5]\d:[0-5]\d/
+      /\d{4}(-)(1[0-2]|0?\d)\1([0-2]\d|\d|30|31) \d+:[0-5]\d:[0-5]\d/
     if (!infoRowReg.test(e)) return
     const [date, time, nickname] = e.split(' ')
     const content = data[i + 1]
