@@ -1,15 +1,14 @@
 import path from 'path'
-import { getMessageFile } from './utils'
+import { getMessageMap } from './utils'
 
 async function main() {
-  const messageMap = await getMessageFile(
+  const messageMap = await getMessageMap(
     path.resolve(__dirname, '../message.txt')
   )
   console.log(messageMap)
 }
 
 main()
-// const readline = require('readline')
 
 // const config = {
 //   startDay: '',

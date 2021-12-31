@@ -1,8 +1,8 @@
 import fs from 'fs/promises'
-import { date, Message } from './types'
+import { MessageMap } from './types'
 
-export async function getMessageFile(path) {
-  const messageMap = new Map<date, Message[]>()
+export async function getMessageMap(path) {
+  const messageMap: MessageMap = new Map()
   const file = await fs.readFile(path, 'utf-8')
   const data = file.split('\r\n')
   data.forEach((e, i) => {
