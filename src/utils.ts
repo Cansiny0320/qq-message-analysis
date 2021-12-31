@@ -1,4 +1,5 @@
 import fs from 'fs/promises'
+import dayjs from 'dayjs'
 import { MessageMap } from './types'
 
 export async function getMessageMap(path) {
@@ -18,4 +19,10 @@ export async function getMessageMap(path) {
     }
   })
   return messageMap
+}
+
+export function getTimeDiff(date1: string, date2: string) {
+  const d1 = dayjs(date1)
+  const d2 = dayjs(date2)
+  return d1.diff(d2, 'second')
 }

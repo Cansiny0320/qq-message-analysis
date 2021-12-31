@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/Cansiny0320/qq-message-analysis#readme",
   "dependencies": {
+    "dayjs": "^1.10.7",
     "nodejieba": "^2.5.2"
   },
   "devDependencies": {
