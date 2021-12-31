@@ -11,6 +11,12 @@ interface MostMessage {
   num: number
 }
 
+interface longestMessage {
+  date: date
+  time: string
+  content: string
+}
+
 export function summaryOfYear(messageMap: MessageMap) {
   const totalMessage: MessageCount = {
     total: 0,
@@ -21,6 +27,12 @@ export function summaryOfYear(messageMap: MessageMap) {
   let mostMessage: MostMessage = {
     date: '',
     num: 0,
+  }
+
+  let longestMessage: longestMessage = {
+    date: '',
+    time: '',
+    content: '',
   }
 
   let content = ''
@@ -34,7 +46,7 @@ export function summaryOfYear(messageMap: MessageMap) {
     totalMessage.img += (content.match(imgReg) || []).length
   }
 
-  const getTheMostMessageDate = (messages: Message[], date: date) => {
+  const getTheMostMessage = (messages: Message[], date: date) => {
     if (messages.length > mostMessage.num) {
       mostMessage.num = messages.length
       mostMessage.date = date
@@ -45,10 +57,18 @@ export function summaryOfYear(messageMap: MessageMap) {
     return jieba.extract(content, top).map(e => e.word)
   }
 
+  const getTheLongestMessage = (message: Message) => {
+    if (message.content.length > longestMessage.content.length) {
+      longestMessage.content = message.content
+      longestMessage.date = message.date
+      longestMessage.time = message.time
+    }
+  }
   messageMap.forEach((messages, date) => {
-    getTheMostMessageDate(messages, date)
+    getTheMostMessage(messages, date)
     messages.forEach(message => {
       messageCount(message)
+      getTheLongestMessage(message)
       content += message.content
     })
   })
