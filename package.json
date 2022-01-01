@@ -18,7 +18,9 @@
   },
   "homepage": "https://github.com/Cansiny0320/qq-message-analysis#readme",
   "dependencies": {
+    "@types/express": "^4.17.13",
     "dayjs": "^1.10.7",
+    "express": "^4.17.2",
     "nodejieba": "^2.5.2"
   },
   "devDependencies": {
