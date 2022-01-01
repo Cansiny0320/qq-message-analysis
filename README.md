@@ -1,17 +1,18 @@
 <h1 align="center">💌 QQ MESSAGE ANALYSIS</h1>
 
-a tiny toy, maybe it can be used by couple
+QQ 聊天记录分析
 
 ## Features
 
-- Count the number of days of chat and the total number of chat records
-- Figure out which day to chat most frequently
-- find the keyword
+- 年度报告功能 (默认 2021)
 
 ## Usage
 
-```
-$ node server.js
-```
+将你的聊天记录文件命名为 `message.txt` 放在根目录下
 
-upload the Chat record from qq (message.txt)
+[聊天记录导出方法](https://kf.qq.com/faq/161230MfMfqy161230q2ENVr.html)
+
+```
+$ pnpm i # or npm yarn 
+$ pnpm run start
+```
